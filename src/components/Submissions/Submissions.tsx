@@ -12,6 +12,7 @@ import axios from 'axios';
 import React from 'react';
 import { parseDate, truncString } from '@/lib/utils';
 import Link from 'next/link';
+import AddSubmission from './AddSubmission';
 
 type Props = {};
 
@@ -31,42 +32,43 @@ const Submissions = (props: Props) => {
   if (isError) return <div>Error...</div>;
 
   return (
-    <div>
+    <div className="w-full">
+      <AddSubmission />
       <SubmissionsHeader />
       <ul className="">
-        {data
-          ? data.map((submission) => (
+        {data ? (
+          <Accordion type="single" collapsible className="w-full">
+            {data.map((submission) => (
               <li key={submission._id} className="">
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value={submission._id}>
-                    <AccordionTrigger>
-                      <div className="flex flex-row gap-2 mb-2">
-                        <div>
-                          <div className="h-6 w-6 rounded-full bg-stone-500" />
-                        </div>
-                        <div className="w-36">{submission.name}</div>
-                        <div className="w-56">
-                          <Link href={submission.homepage_url}>
-                            {truncString(
-                              submission.homepage_url.replace(
-                                /^(https?:\/\/)/,
-                                ''
-                              ),
-                              24
-                            )}
-                          </Link>
-                        </div>
-                        <div>{parseDate(submission.created_at)}</div>
+                <AccordionItem value={submission._id}>
+                  <AccordionTrigger>
+                    <div className="flex flex-row gap-2 mb-2">
+                      <div>
+                        <div className="h-6 w-6 rounded-full bg-stone-500" />
                       </div>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      Yes. It adheres to the WAI-ARIA design pattern.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                      <div className="w-36">{submission.name}</div>
+                      <div className="w-56">
+                        <Link href={submission.homepage_url}>
+                          {truncString(
+                            submission.homepage_url.replace(
+                              /^(https?:\/\/)/,
+                              ''
+                            ),
+                            24
+                          )}
+                        </Link>
+                      </div>
+                      <div>{parseDate(submission.created_at)}</div>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Yes. It adheres to the WAI-ARIA design pattern.
+                  </AccordionContent>
+                </AccordionItem>
               </li>
-            ))
-          : null}
+            ))}
+          </Accordion>
+        ) : null}
       </ul>
     </div>
   );

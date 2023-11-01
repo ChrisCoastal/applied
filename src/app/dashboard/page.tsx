@@ -6,9 +6,11 @@ type Props = {};
 
 const Dashboard = (props: Props) => {
   return (
-    <div className="flex flex-row m-auto max-w-7xl gap-8">
-      <Sidebar />
-      <Submissions />
+    <div className="m-auto max-w-7xl">
+      <div className="flex flex-row  gap-12">
+        <Submissions />
+        <Sidebar />
+      </div>
     </div>
   );
 };
