@@ -1,18 +1,16 @@
 import mongoose from 'mongoose';
 
-const submissionsSchema = new mongoose.Schema({
+const SubmissionsSchema = new mongoose.Schema({
   name: String,
-  overview: String,
   homepage_url: String,
   number_of_employees: Number,
-  created_at: Date,
-  updated_at: Date,
+  created_at: String,
+  updated_at: String,
 });
 
-const SubmissionsModel = mongoose.model(
-  'submission',
-  submissionsSchema,
-  'companies'
-);
+// do not recreate model if it already exists
+const SubmissionsModel =
+  mongoose.models.Submission ??
+  mongoose.model('Submission', SubmissionsSchema, 'companies');
 
 export default SubmissionsModel;

@@ -4,14 +4,17 @@ import SubmissionsModel from '@/models/submissionsModel';
 
 export async function GET() {
   try {
-    const DB_URL = process.env.MONGODB_URL!;
+    const DB_URL = process.env.MONGODB_URL;
+    if (!DB_URL) throw new Error('DB_URL is not defined');
+
     await mongoose
       .connect(DB_URL)
       .then(() => console.log('DB connection successful!'))
       .catch((err) => console.log(err));
-    const submissions = await SubmissionsModel.findOne({
-      name: 'Wetpaint',
-    });
+
+    const submissions = await SubmissionsModel.find({
+      // name: 'Wetpaint',
+    }).limit(10);
     console.log(submissions);
     return NextResponse.json(submissions);
     // const DB_URL = process.env.MONGODB_URL;
