@@ -1,5 +1,5 @@
 'use client';
-import { Submission } from '@/@types/types';
+import { Submission } from '@/@types';
 import { useQuery } from '@tanstack/react-query';
 import SubmissionsHeader from '@/components/Submissions/SubmissionsHeader';
 import {
@@ -13,6 +13,7 @@ import React from 'react';
 import { parseDate, truncString } from '@/lib/utils';
 import Link from 'next/link';
 import AddSubmission from './AddSubmission';
+import { SubmissionFormValue } from '@/models/submissionsModel';
 
 type Props = {};
 
@@ -24,7 +25,7 @@ const Submissions = (props: Props) => {
       // const res = await fetch('/api/submissions');
       const { data } = await axios.get('/api/submissions');
       console.log(data);
-      return data as Submission[];
+      return data as SubmissionFormValue[];
     },
   });
 
@@ -46,23 +47,25 @@ const Submissions = (props: Props) => {
                       <div>
                         <div className="h-6 w-6 rounded-full bg-stone-500" />
                       </div>
-                      <div className="w-36">{submission.name}</div>
+                      <div className="w-36">{submission.company}</div>
                       <div className="w-56">
-                        <Link href={submission.homepage_url}>
-                          {truncString(
-                            submission.homepage_url.replace(
-                              /^(https?:\/\/)/,
-                              ''
-                            ),
-                            24
-                          )}
-                        </Link>
+                        {submission?.websiteUrl && (
+                          <Link href={submission.websiteUrl}>
+                            {truncString(
+                              submission.websiteUrl.replace(
+                                /^(https?:\/\/)/,
+                                ''
+                              ),
+                              24
+                            )}
+                          </Link>
+                        )}
                       </div>
-                      <div>{parseDate(submission.created_at)}</div>
+                      <div>{parseDate(submission.submitDate)}</div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    Yes. It adheres to the WAI-ARIA design pattern.
+                    This is the details about the submission.
                   </AccordionContent>
                 </AccordionItem>
               </li>

@@ -1,0 +1,28 @@
+{
+  "company": "My Company",
+  "position": "Frontend Developer",
+  "contact": "James",
+  "documents": {
+    "resume": true,
+    "cover_letter": true,
+    "screening": false,
+    "support_docs": true,
+    "code_challenge": false
+  },
+  "status": "unsubmit",
+  "qualifications": {
+    "todo": ["Go", "Redux", "Python"],
+    "done": [],
+    "notes": [],
+    "application_date": "",
+    "website_url": "",
+    "applicant_portal": "",
+    "posting_link": "",
+    "location": {
+      "city": "Tokyo",
+      "type": "remote",
+      "created_at": "",
+      "updated_at": ""
+    }
+  }
+}
