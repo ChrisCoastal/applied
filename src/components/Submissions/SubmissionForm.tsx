@@ -55,47 +55,72 @@ const SubmissionForm = (props: Props) => {
           control={form.control}
           name="company"
           render={({ field }) => (
-            <>
-              <FormItem>
-                <FormLabel>Company</FormLabel>
-                <FormControl>
-                  <Input placeholder="company" {...field} />
-                </FormControl>
-              </FormItem>
-              <FormItem>
-                <FormLabel>Position</FormLabel>
-                <FormControl>
-                  <Input placeholder="position" {...field} />
-                </FormControl>
-              </FormItem>
-              <FormItem>
-                <FormLabel>Location</FormLabel>
-                <FormControl>
-                  <Input placeholder="location" {...field} />
-                </FormControl>
-              </FormItem>
-              <FormItem>
-                <RadioGroup
-                  defaultValue="remote"
-                  className="flex flex-row gap-4"
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="onsite" id="onsite" />
-                    <Label htmlFor="onsite">onsite</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="hybrid" id="hybrid" />
-                    <Label htmlFor="hybrid">hybrid</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="remote" id="remote" />
-                    <Label htmlFor="remote">remote</Label>
-                  </div>
-                </RadioGroup>
-              </FormItem>
-            </>
+            <FormItem>
+              <FormLabel>Company</FormLabel>
+              <FormControl>
+                <Input placeholder="company" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="position"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Position</FormLabel>
+              <FormControl>
+                <Input placeholder="position" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="location"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Location</FormLabel>
+              <FormControl>
+                <Input placeholder="location" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="workplaceModel"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Workplace Model</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                  className="flex flex-row gap-4"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="onsite" />
+                    </FormControl>
+                    <FormLabel className="font-normal">onsite</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="hybrid" />
+                    </FormControl>
+                    <FormLabel className="font-normal">hybrid</FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>

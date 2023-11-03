@@ -40,8 +40,8 @@ const Submissions = (props: Props) => {
         {data ? (
           <Accordion type="single" collapsible className="w-full">
             {data.map((submission) => (
-              <li key={submission._id} className="">
-                <AccordionItem value={submission._id}>
+              <li key={submission.company} className="">
+                <AccordionItem value={submission.company}>
                   <AccordionTrigger>
                     <div className="flex flex-row gap-2 mb-2">
                       <div>
