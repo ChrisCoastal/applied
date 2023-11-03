@@ -8,6 +8,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
+import SubmissionForm from './SubmissionForm';
+
 type Props = {};
 
 const AddSubmission = (props: Props) => {
@@ -16,12 +18,10 @@ const AddSubmission = (props: Props) => {
       <DialogTrigger>Add</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
+          <DialogTitle>Add Job Application</DialogTitle>
+          <DialogDescription>This is adding a job.</DialogDescription>
         </DialogHeader>
+        <SubmissionForm />
       </DialogContent>
     </Dialog>
   );

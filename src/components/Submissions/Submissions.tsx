@@ -13,7 +13,7 @@ import React from 'react';
 import { parseDate, truncString } from '@/lib/utils';
 import Link from 'next/link';
 import AddSubmission from './AddSubmission';
-import { SubmissionFormValue } from '@/models/submissionsModel';
+import { SubmissionFormInput } from '@/models/submissionsModel';
 
 type Props = {};
 
@@ -25,7 +25,7 @@ const Submissions = (props: Props) => {
       // const res = await fetch('/api/submissions');
       const { data } = await axios.get('/api/submissions');
       console.log(data);
-      return data as SubmissionFormValue[];
+      return data as SubmissionFormInput[];
     },
   });
 
@@ -49,7 +49,7 @@ const Submissions = (props: Props) => {
                       </div>
                       <div className="w-36">{submission.company}</div>
                       <div className="w-56">
-                        {submission?.websiteUrl && (
+                        {/* {submission?.websiteUrl && (
                           <Link href={submission.websiteUrl}>
                             {truncString(
                               submission.websiteUrl.replace(
@@ -59,9 +59,10 @@ const Submissions = (props: Props) => {
                               24
                             )}
                           </Link>
-                        )}
+                        )} */}
                       </div>
-                      <div>{parseDate(submission.submitDate)}</div>
+                      <div>{submission.position}</div>
+                      <div>{submission.location}</div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>

@@ -14,58 +14,54 @@ const SubmissionDocumentsSchema = z.object({
   codeChallenge: z.boolean().default(false),
 });
 
-const SubmissionLocationSchema = z.object({
-  city: z.string().min(1),
-  type: z.enum(['onsite', 'remote', 'hybrid']),
-});
+const SubmissionNotesSchema = z
+  .string()
+  .default('')
+  .transform((val) => val.split('\n'));
 
-export const SubmissionSchema = ObjectWithId.extend({
+export const SubmissionSchema = z.object({
   company: z.string().min(1),
   position: z.string().min(1),
-  location: SubmissionLocationSchema,
-  contact: z.string().min(1).optional(),
-  documents: SubmissionDocumentsSchema,
-  status: z.enum(['notsubmitted', 'submitted', 'interview', 'offer', 'reject']),
-  notes: z
-    .string()
-    .default('')
-    .transform((val) => val.split('\n')),
-  qualifications: z.array(z.string()).optional(),
-  websiteUrl: z.string().url().default(''),
-  applicantPortal: z.string().url().optional(),
-  postingLink: z.string().url().optional(),
-  submitDate: z.string().datetime(),
+  location: z.string().min(1),
+  workplaceModel: z.enum(['onsite', 'remote', 'hybrid']),
+  // contact: z.string().min(1).optional(),
+  // documents: SubmissionDocumentsSchema,
+  // status: z.enum(['notsubmitted', 'submitted', 'interview', 'offer', 'reject']),
+  // notes: SubmissionNotesSchema,
+  // qualifications: z.array(z.string()).optional(),
+  // websiteUrl: z.string().url().default(''),
+  // applicantPortal: z.string().url().optional(),
+  // postingLink: z.string().url().optional(),
+  // submitDate: z.string().datetime(),
 });
 
 export type SubmissionFormParsed = z.infer<typeof SubmissionSchema>;
-export type SubmissionFormValue = z.input<typeof SubmissionSchema>;
+export type SubmissionFormInput = z.input<typeof SubmissionSchema>;
 
-const SubmissionDbSchema = new Schema<SubmissionFormValue>({
+const SubmissionDbSchema = new Schema<SubmissionFormInput>({
   company: String,
   position: String,
-  contact: String,
-  documents: {
-    resume: Boolean,
-    coverLetter: Boolean,
-    screeningQuestions: Boolean,
-    supportingDocuments: Boolean,
-    codeChallenge: Boolean,
-  },
-  status: String,
-  qualifications: [String],
-  notes: [String],
-  websiteUrl: String,
-  applicantPortal: String,
-  postingLink: String,
-  location: {
-    city: String,
-    type: String,
-  },
-  submitDate: String,
+  location: String,
+  workplaceModel: String,
+  // contact: String,
+  // documents: {
+  //   resume: Boolean,
+  //   coverLetter: Boolean,
+  //   screeningQuestions: Boolean,
+  //   supportingDocuments: Boolean,
+  //   codeChallenge: Boolean,
+  // },
+  // status: String,
+  // qualifications: [String],
+  // notes: [String],
+  // websiteUrl: String,
+  // applicantPortal: String,
+  // postingLink: String,
+  // submitDate: String,
 });
 
 // do not recreate model if it already exists
 const SubmissionModel =
-  models.Submission ?? model('Submission', SubmissionDbSchema, 'companies');
+  models?.Submission ?? model('Submission', SubmissionDbSchema, 'companies');
 
 export default SubmissionModel;
