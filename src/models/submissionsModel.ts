@@ -61,7 +61,5 @@ const SubmissionDbSchema = new Schema<SubmissionFormInput>({
 });
 
 // do not recreate model if it already exists
-const SubmissionModel =
-  models?.Submission ?? model('Submission', SubmissionDbSchema, 'companies');
-
-export default SubmissionModel;
+export const SubmissionModel =
+  models?.Submission ?? model('Submission', SubmissionDbSchema, 'submissions');

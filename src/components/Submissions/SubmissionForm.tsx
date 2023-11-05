@@ -2,6 +2,8 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import { SubmissionSchema } from '@/models/submissionsModel';
 import type { SubmissionFormInput } from '@/models/submissionsModel';
 import { Button } from '@/components/ui/button';
@@ -27,22 +29,39 @@ const SubmissionForm = (props: Props) => {
       position: '',
       location: '',
       workplaceModel: 'remote',
-      // websiteUrl: '',
-      // submitDate: new Date().toISOString(),
-      // notes: '',
+    },
+  });
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['submissions'],
+    queryFn: async () => {
+      const { data } = await axios.get('/api/submissions');
+      console.log(data);
+      return data as SubmissionFormInput[];
+    },
+  });
+
+  const mutation = useMutation({
+    mutationFn: async (newSubmission: SubmissionFormInput) => {
+      console.log(newSubmission);
+      const res = await axios.post('/api/submissions', newSubmission);
+      return res.data;
+    },
+    onSuccess: (data, submission) => {
+      console.log('success', `saved ${submission.company} to db`);
     },
   });
 
   function onSubmit(data: SubmissionFormInput) {
     try {
-      console.log(data);
+      mutation.mutate(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
   function onError(errors: any) {
-    console.log(errors);
+    console.error(errors);
   }
 
   return (
