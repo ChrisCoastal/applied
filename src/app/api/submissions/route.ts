@@ -32,18 +32,18 @@ export async function GET() {
   }
 }
 
-export async function POST(req: Request) {
-  try {
-    const DB_URL = constructDbUrl('submissions');
-    const body = await req.json();
-    const parsedBody = SubmissionSchema.parse(body);
-    const newSubmission = new SubmissionModel(parsedBody);
+// export async function POST(req: Request) {
+//   try {
+//     const DB_URL = constructDbUrl('submissions');
+//     const body = await req.json();
+//     const parsedBody = SubmissionSchema.parse(body);
+//     const newSubmission = new SubmissionModel(parsedBody);
 
-    await newSubmission.save();
+//     await newSubmission.save();
 
-    return NextResponse.json(newSubmission);
-  } catch (err) {
-    console.error('There was an error while writing to the db', err);
-    return NextResponse.error();
-  }
-}
+//     return NextResponse.json(newSubmission);
+//   } catch (err) {
+//     console.error('There was an error while writing to the db', err);
+//     return NextResponse.error();
+//   }
+// }
